@@ -43,6 +43,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', users);
 
 
+
+/*
+http.listen(process.env.PORT || 3000, function(){
+    console.log('listening on', http.address().port);
+});
 app.listen(9000, function () {
     console.log('Example app listening on port 3000!')
-});
+});*/
+module.exports = app;
