@@ -13,7 +13,7 @@ connection.connect();
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/mahesh', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
     connection.query('select * from usersList',function (err,rows,fields) {
         if(err) throw err;
@@ -24,7 +24,7 @@ router.get('/mahesh', function(req, res, next) {
     connection.end();
 });
 
-router.get('/', function(req, res, next) {
+router.get('/mahesh', function(req, res, next) {
     res.send('mahesh hello');
 });
 
