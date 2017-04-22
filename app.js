@@ -13,10 +13,16 @@ var app = express();
 
 var users = require('./routes/users');
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+/*app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9100');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -30,7 +36,7 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});
+});*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -44,11 +50,5 @@ app.use('/users', users);
 
 
 
-/*
-http.listen(process.env.PORT || 3000, function(){
-    console.log('listening on', http.address().port);
-});
-app.listen(9000, function () {
-    console.log('Example app listening on port 3000!')
-});*/
+
 module.exports = app;
