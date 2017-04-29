@@ -10,7 +10,7 @@ var connection=mysql.createConnection({
     password:'tgor7glk44rmlm80',
     database:'rgxrisv4kau4y50h'
 });
-connection.connect();
+
 var router = express.Router();
 
 /* GET users listing. */
@@ -22,7 +22,18 @@ router.get('/', function(req, res, next) {
         res.send(rows);
 
     });
-    connection.end();
+
+});
+
+router.get('/getuser/:userName',function (req,res,next) {
+    var obj=req.params;
+    connection.query('select userId from usersList where userName= ?',[obj.userName],function (err,rows,fields) {
+/*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
+        if(err) throw err;
+        console.log('connection is established',JSON.stringify(rows));
+        res.send(rows);
+    });
+
 });
 
 router.get('/mahesh', function(req, res, next) {
