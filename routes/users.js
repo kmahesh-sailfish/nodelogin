@@ -24,11 +24,43 @@ router.get('/', function(req, res, next) {
     });
 
 });
+router.post('/test-page', function(req, res) {
+    console.log('call',req.body);
+    var userName = req.body.userName;
+      var password = req.body.password;
+   // var dbRequest = 'SELECT * FROM Students WHERE IDCard = \'' + req.query['id'] + '\'';
+    //'SELECT * FROM users WHERE id = ?'
+    connection.query('select userId from usersList where userName=?',[req.body.userName],function (err,rows,fields) {
+        /*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
+        if(err) throw err;
+        console.log('connection is established',JSON.stringify(rows));
+        res.send(rows);
+    });
+
+
+
+
+});
+
+
+
 
 router.get('/getuser/:userName',function (req,res,next) {
     var obj=req.params;
     connection.query('select userId from usersList where userName= ?',[obj.userName],function (err,rows,fields) {
 /*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
+        if(err) throw err;
+        console.log('connection is established',JSON.stringify(rows));
+        res.send(rows);
+    });
+
+});
+
+
+router.get('/getusers/:userName/:password',function (req,res,next) {
+    var obj=req.params;
+    connection.query('select userId from usersList where userName= ? && password=?',[obj.userName] ,[obj.password],function (err,rows,fields) {
+        /*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
         if(err) throw err;
         console.log('connection is established',JSON.stringify(rows));
         res.send(rows);
