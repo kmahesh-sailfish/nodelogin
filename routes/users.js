@@ -16,7 +16,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-    connection.query('select * from usersList',function (err,rows,fields) {
+    connection.query('select * from testUsers',function (err,rows,fields) {
         if(err) throw err;
         console.log('connection is established',JSON.stringify(rows));
         res.send(rows);
