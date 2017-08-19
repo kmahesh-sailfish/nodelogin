@@ -24,49 +24,31 @@ router.get('/', function(req, res, next) {
     });
 
 });
-router.post('/test-page', function(req, res) {
-    console.log('call',req.body);
+
+
+router.post('/getLogins',function (req,res,next) {
     var userName = req.body.userName;
-      var password = req.body.password;
-   // var dbRequest = 'SELECT * FROM Students WHERE IDCard = \'' + req.query['id'] + '\'';
-    //'SELECT * FROM users WHERE id = ?'
-    connection.query('select userId from usersList where userName=?',[req.body.userName],function (err,rows,fields) {
-        /*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
-        if(err) throw err;
-        console.log('connection is established',JSON.stringify(rows));
+    var password = req.body.password;
+    var sql='select userId from usersList  where userName="'+userName+'" and password="'+password+'"'
+    /*var sql='select userId from usersList where userName='+userName+' AND '+'password='+password*/
+    console.log(sql);
+    connection.query(sql,function (err,rows,fields) {
         res.send(rows);
-    });
-
-
-
+    })
 
 });
 
+/*
+router.post('/getLogin',function (req,res,next) {
+    var userName = req.body.userName;
+    var password = req.body.password;
+   var qury='select userId from usersList where userName='+userName+' AND password='+password;
+   console.log(qury);
+        connection.query(qury,function (err,result) {
+            console.log(err);
+        })
 
-
-
-router.get('/getuser/:userName',function (req,res,next) {
-    var obj=req.params;
-    connection.query('select userId from usersList where userName= ?',[obj.userName],function (err,rows,fields) {
-/*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
-        if(err) throw err;
-        console.log('connection is established',JSON.stringify(rows));
-        res.send(rows);
-    });
-
-});
-
-
-router.get('/getusers/:userName/:password',function (req,res,next) {
-    var obj=req.params;
-    connection.query('select userId from usersList where userName= ? && password=?',[obj.userName] ,[obj.password],function (err,rows,fields) {
-        /*        "INSERT INTO cast (`name`, `portrait`, `role`, `bio`) VALUES ('" + data.name + "', '" + data.portrait + "', '" + data.role + "', '" + data.bio + "');";*/
-        if(err) throw err;
-        console.log('connection is established',JSON.stringify(rows));
-        res.send(rows);
-    });
-
-});
+});*/
 
 router.get('/mahesh', function(req, res, next) {
     res.send('mahesh hello');
